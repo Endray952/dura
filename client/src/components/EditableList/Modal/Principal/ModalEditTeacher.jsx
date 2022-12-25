@@ -62,6 +62,8 @@ const ModalEditTeacher = ({ handleClose }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [gotResponse, setGotResponse] = useState(false);
 
+    const formRef = useRef();
+
     const handleChange = (e) => {
         const {
             target: { value },
@@ -71,7 +73,8 @@ const ModalEditTeacher = ({ handleClose }) => {
     };
 
     const handleApply = async () => {
-        const formEl = document.getElementById("dura");
+        formRef.current.reportValidity();
+        const formEl = document.getElementById("dura_teacher");
         if (!formEl.checkValidity()) {
             const tmpSubmit = document.createElement("button");
             formEl.appendChild(tmpSubmit);
@@ -101,7 +104,7 @@ const ModalEditTeacher = ({ handleClose }) => {
                         modalItem.id,
                         name,
                         surname,
-                        birthday.substring(0, 10)
+                        `${birthday.$y}-${birthday.$M + 1}-${birthday.$D}`
                     ).then(() => {
                         updateComponent();
                         handleClose();
@@ -123,11 +126,10 @@ const ModalEditTeacher = ({ handleClose }) => {
     }, []);
 
     const handleDel = () => {
-        
-
         handleClose();
     };
 
+    console.log(birthday);
     return (
         <>
             {isLoading ? (
@@ -143,7 +145,7 @@ const ModalEditTeacher = ({ handleClose }) => {
                     <CircularProgress />
                 </div>
             ) : (
-                <div>
+                <form id="dura_teacher" action="" ref={formRef}>
                     <InputsWrapper>
                         <InputsCol>
                             <TextField
@@ -154,6 +156,7 @@ const ModalEditTeacher = ({ handleClose }) => {
                                 onChange={(e) => setName(e.target.value)}
                                 sx={{ marginBottom: "20px" }}
                             />
+
                             <TextField
                                 label={"Фамилия"}
                                 variant={"filled"}
@@ -191,6 +194,10 @@ const ModalEditTeacher = ({ handleClose }) => {
                                                 display: "flex",
                                                 flexWrap: "wrap",
                                                 gap: 0.5,
+                                                width: "250px",
+                                                height: "100px",
+
+                                                overflow: "auto",
                                             }}
                                         >
                                             {selected.map((value) => (
@@ -249,7 +256,7 @@ const ModalEditTeacher = ({ handleClose }) => {
                             Уволить
                         </Button>
                     </div>
-                </div>
+                </form>
             )}
         </>
     );
