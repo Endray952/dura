@@ -129,7 +129,6 @@ const ModalEditTeacher = ({ handleClose }) => {
         handleClose();
     };
 
-    console.log(birthday);
     return (
         <>
             {isLoading ? (

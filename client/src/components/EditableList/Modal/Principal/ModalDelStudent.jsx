@@ -37,10 +37,13 @@ const ModalDelStudent = ({ handleClose }) => {
     const [grade, setGrade] = useState(modalItem.grade.id);
     const [birthday, setBirthday] = useState(modalItem.birthdayDate);
 
+    const formRef = useRef();
+
     const token = useRef("");
 
     const handleApply = async () => {
-        const formEl = document.getElementById("dura");
+        formRef.current.reportValidity();
+        const formEl = document.getElementById("dura_student");
         if (!formEl.checkValidity()) {
             const tmpSubmit = document.createElement("button");
             formEl.appendChild(tmpSubmit);
@@ -58,7 +61,7 @@ const ModalDelStudent = ({ handleClose }) => {
                     modalItem.id,
                     name,
                     surname,
-                    birthday.substring(0, 10),
+                    `${birthday.$y}-${birthday.$M + 1}-${birthday.$D}`,
                     grade
                 ).then((r) => {
                     updateComponent();
@@ -77,7 +80,7 @@ const ModalDelStudent = ({ handleClose }) => {
 
     return (
         <>
-            <div>
+            <form id="dura_student" action="" ref={formRef}>
                 <InputsWrapper>
                     <InputsCol>
                         <TextField
@@ -151,7 +154,7 @@ const ModalDelStudent = ({ handleClose }) => {
                         Отчислить
                     </Button>
                 </div>
-            </div>
+            </form>
         </>
     );
 };
