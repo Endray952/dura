@@ -6,6 +6,7 @@ import {
     getHTeacherInfo,
     getPrincipalInfo,
     getStudentInfo,
+    getTeacherInfo,
     registerUserQuery,
 } from "./UserQueries.js";
 import pool from "../../DBInit.js";
@@ -167,7 +168,6 @@ class UserRepository {
             let queryResult: QueryResult<any>;
 
             if (roleId === "Ученик") {
-
                 queryResult = await pool.query(getStudentInfo(userId));
 
                 const row: any = queryResult.rows[0];
@@ -227,6 +227,24 @@ class UserRepository {
                 return result;
             }
 
+            if (roleId === "Учитель") {
+                queryResult = await pool.query(getTeacherInfo(userId));
+
+                const row: any = queryResult.rows[0];
+
+                result = {
+                    status: Status.SUCCESS,
+                    message: "Register new user successfully",
+                    data: new HeadTeacher(
+                        row["studentId"],
+                        row["name"],
+                        row["surname"],
+                        new Date(row["birthday_date"])
+                    ),
+                };
+
+                return result;
+            }
         } catch (error) {
             console.error(error);
 

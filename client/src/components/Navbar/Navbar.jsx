@@ -56,18 +56,18 @@ const Navbar = () => {
     const contextRef = useRef(null);
 
     useEffect(() => {
-        document.addEventListener('click', closeContextGlobal);
+        document.addEventListener("click", closeContextGlobal);
 
         return () => {
-            document.removeEventListener('click', closeContextGlobal);
-        }
+            document.removeEventListener("click", closeContextGlobal);
+        };
     }, []);
 
     const closeContextGlobal = (e) => {
         if (e.button === 0) {
             closeContext(e);
         }
-    }
+    };
 
     const handleAccButtonClick = () => {
         if (AuthController.userRole === "Ученик") {
@@ -76,6 +76,9 @@ const Navbar = () => {
 
         if (AuthController.userRole === "Директор") {
             navigate("/account/principal");
+        }
+        if (AuthController.userRole === "Учитель") {
+            navigate("/account/teacher");
         }
     };
 

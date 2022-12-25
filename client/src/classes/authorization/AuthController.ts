@@ -99,6 +99,20 @@ class AuthController {
                         }
                     );
                 }
+
+                if (decoded.role === "Учитель") {
+                    UserStore.setUserInfo(
+                        user.id,
+                        user.name,
+                        user.surname,
+                        user.birthdayDate,
+                        {
+                            id: "0",
+                            number: 0,
+                            letter: "0",
+                        }
+                    );
+                }
             }
 
             this.shouldUserLogin = false;

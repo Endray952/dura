@@ -2,7 +2,10 @@ import { QueryResult } from "pg";
 import { Status } from "../../../Types/ResultType.js";
 import pool from "../../DBInit.js";
 import { QueryResultType } from "../../QueryResultType.js";
-import { getGradeLessonsQuery } from "./LessonQueries.js";
+import {
+    getGradeLessonsQuery,
+    getTeacherLessonsQuery,
+} from "./LessonQueries.js";
 
 export interface GradeLesson {
     id: string;
@@ -33,7 +36,43 @@ export class LessonRepository {
                     teacherName: item.teacherName,
                     teacherSurname: item.teacherSurname,
                     date: item.date,
-                    classroom: item.classroom
+                    classroom: item.classroom,
+                })
+            );
+
+            result = {
+                status: Status.SUCCESS,
+                message: "Found grade lessons",
+                data: result.data,
+            };
+
+            return result;
+        } catch (error) {
+            console.log(error);
+            return result;
+        }
+    }
+
+    static async getTeacherLessons(teacherId: string) {
+        let result: QueryResultType<GradeLesson[]> = {
+            status: Status.FAILURE,
+            message: "Can't get lessons",
+            data: [],
+        };
+
+        try {
+            let queryResult: QueryResult<any>;
+            queryResult = await pool.query(getTeacherLessonsQuery(teacherId));
+
+            const rows = queryResult.rows;
+            rows.forEach((item) =>
+                result.data.push({
+                    id: item.lessonId,
+                    disciplineName: item.disciplineName,
+                    teacherName: item.teacherName,
+                    teacherSurname: item.teacherSurname,
+                    date: item.date,
+                    classroom: item.classroom,
                 })
             );
 

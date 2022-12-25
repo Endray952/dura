@@ -85,3 +85,13 @@ export const getLessons = async (gradeId: string) => {
 
     return response;
 };
+
+export const getTeacherLessons = async (teacherId: string) => {
+    const response = await $authHost.get("api/lessons/teacher", {
+        params: {
+            teacherId: teacherId,
+        },
+    });
+
+    return response;
+};

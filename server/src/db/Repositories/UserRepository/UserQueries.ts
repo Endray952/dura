@@ -70,3 +70,12 @@ export const getHTeacherInfo = (userId: string) => `
     FROM "head_teacher"
     WHERE "head_teacher"."id" = get_person_id('${userId}');
 `;
+
+export const getTeacherInfo = (userId: string) => `
+    SELECT "teacher"."id" AS "studentId",
+    "teacher"."name", 
+           "teacher"."surname",
+           "teacher"."birthday_date"
+    FROM "teacher"
+    WHERE "teacher"."id" = get_person_id('${userId}');
+`;

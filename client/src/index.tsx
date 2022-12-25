@@ -8,6 +8,7 @@ import { Root } from "./routes/Root";
 import Auth from "./routes/AuthFree/Auth/Auth";
 import PrincipalAccount from "./pages/account/PrincipalAccount";
 import StudentAccount from "./pages/account/StudentAccount";
+import TeacherAccount from "./pages/account/TeacherAccount";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
     {
         path: "/account/student",
         element: <StudentAccount />,
+    },
+    {
+        path: "/account/teacher",
+        element: <TeacherAccount />,
     },
 ]);
 
