@@ -186,6 +186,8 @@ const EditableListStudents = ({ config, shouldUpdate }) => {
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                         <EditableListHead
                             editableListHead={config.editableListHead}
+                            listItems={listItems}
+                            setListItems={setListItems}
                         />
                     </thead>
                     <tbody>
